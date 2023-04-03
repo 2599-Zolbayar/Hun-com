@@ -3,7 +3,7 @@
 ## terminal дээрээс
 
 ```c
-git clone 
+git clone https://github.com/2599-Zolbayar/Hun-com.git
 ```
 
 ```git
