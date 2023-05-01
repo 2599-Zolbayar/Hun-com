@@ -6,6 +6,10 @@
 git clone https://github.com/2599-Zolbayar/Hun-com.git
 ```
 
+```clone-дож авсны дараа react асаах
+npm start
+```
+
 ```git
 git checkout -b "neree bich"
 ```
