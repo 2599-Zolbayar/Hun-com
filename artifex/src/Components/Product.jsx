@@ -4,6 +4,7 @@ function Product(props) {
   const cart = props.cart;
   const title = props.title;
   const setCart = props.setCart;
+  const setTotalQuantity = props.setTotalQuantity;
   const setSelectedPrice = props.setSelectedPrice;
   const setSelectedTitle = props.setSelectedTitle;
   const setSelectedImage = props.setSelectedImage;
@@ -13,6 +14,7 @@ function Product(props) {
       <MakeProduct
         cart={cart}
         setCart={setCart}
+        setTotalQuantity={setTotalQuantity}
         setSelectedPrice={setSelectedPrice}
         setSelectedTitle={setSelectedTitle}
         setSelectedImage={setSelectedImage}

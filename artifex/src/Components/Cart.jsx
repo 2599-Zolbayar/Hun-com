@@ -22,6 +22,10 @@ function Cart({ cart, setCart, setCartVisible, setTotalQuantity }) {
 
   setTotalQuantity(cart.reduce((acc, item) => acc + item.quantity, 0));
 
+  function clickHandleButton() {
+    alert("Захиалга амжилттай");
+  }
+
   return (
     <div
       style={{ width: "500px" }}
@@ -91,7 +95,10 @@ function Cart({ cart, setCart, setCartVisible, setTotalQuantity }) {
             ₮
           </p>
         </div>
-        <button className="flex justify-center items-center w-24 border rounded-2xl bg-btnColor1 text-btnColor2 hover:bg-btnColor2 hover:text-btnColor1">
+        <button
+          onClick={() => clickHandleButton()}
+          className="flex justify-center items-center w-24 border rounded-2xl bg-btnColor1 text-btnColor2 hover:bg-btnColor2 hover:text-btnColor1"
+        >
           Захиалах
         </button>
       </div>

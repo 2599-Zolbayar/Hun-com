@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function MakeProduct({
@@ -7,6 +7,7 @@ function MakeProduct({
   title,
   img,
   price,
+  setTotalQuantity,
   setSelectedPrice,
   setSelectedTitle,
   setSelectedImage,
@@ -14,6 +15,7 @@ function MakeProduct({
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  setTotalQuantity(cart.reduce((acc, item) => acc + item.quantity, 0));
   const handleButtonClick = () => {
     navigate("/info");
     setSelectedPrice(price);

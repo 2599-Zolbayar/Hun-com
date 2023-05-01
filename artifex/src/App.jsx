@@ -50,6 +50,7 @@ function App() {
                 cart={cart}
                 setCart={setCart}
                 data={data}
+                setTotalQuantity={setTotalQuantity}
                 setSelectedImage={setSelectedImage}
                 setSelectedTitle={setSelectedTitle}
                 setSelectedPrice={setSelectedPrice}
