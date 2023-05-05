@@ -1,26 +1,24 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 function MakeProduct({
+  id,
   cart,
   setCart,
   title,
   img,
   price,
   setTotalQuantity,
-  setSelectedPrice,
-  setSelectedTitle,
-  setSelectedImage,
+  setProductInfo,
 }) {
+  id = useParams();
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
   const [quantity, setQuantity] = useState(1);
   setTotalQuantity(cart.reduce((acc, item) => acc + item.quantity, 0));
   const handleButtonClick = () => {
-    navigate("/info");
-    setSelectedPrice(price);
-    setSelectedTitle(title);
-    setSelectedImage(img);
+    setProductInfo({ img, price, title });
+    navigate("/Дэлгэрэнгүй");
   };
   const handleAddButton = () => {
     const item = { title, img, price, quantity };

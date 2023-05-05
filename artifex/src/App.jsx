@@ -8,12 +8,23 @@ import React, { useState, useEffect } from "react";
 import data from "./Data";
 
 function App() {
-  const [selectedImage, setSelectedImage] = useState(0);
-  const [selectedTitle, setSelectedTitle] = useState(0);
-  const [selectedPrice, setSelectedPrice] = useState(0);
   const [cart, setCart] = useState([]);
+  const [userData, setUserData] = useState([
+    {
+      username: "admin1",
+      password: "12345678",
+    },
+  ]);
   const [cartVisible, setCartVisible] = useState(false);
   const [totalQuantity, setTotalQuantity] = useState(0);
+  const [user, setUser] = useState("Зочин");
+  const [productInfo, setProductInfo] = useState({
+    title: data[0].title,
+    price: data[0].price,
+    img: data[0].img,
+  });
+
+  console.log("hello" + productInfo);
 
   useEffect(() => {
     console.log("Cart updated:", cart);
@@ -26,13 +37,18 @@ function App() {
   return (
     <div className="bg-main relative">
       <Router>
-        <Link to="/products"> Үнэт эдлэл </Link>
-        <Link to="/login"> Нэвтрэх </Link>
+        <Link to="/УранЗураг"> Уран зураг </Link>
+        <Link to="/ҮнэтЭдлэл"> Үнэт эдлэл </Link>
+        <Link to="/БэлэгДурсгал"> Бэлэг дурсгал </Link>
+        <Link to="/Хувцас"> Хувцас </Link>
+        <Link to="/Нэвтрэх"> Нэвтрэх </Link>
         <button onClick={() => setCartVisible(true)}>
           Карт {totalQuantity}
         </button>
+        <p>{user}</p>
         {cartVisible ? (
           <Cart
+            user={user}
             cart={cart}
             setCart={setCart}
             setCartVisible={setCartVisible}
@@ -43,35 +59,77 @@ function App() {
         )}
         <Routes>
           <Route
-            path="/products"
+            path="/ҮнэтЭдлэл"
             element={
               <Product
+                setProductInfo={setProductInfo}
                 title="Үнэт эдлэл"
                 cart={cart}
                 setCart={setCart}
                 data={data}
                 setTotalQuantity={setTotalQuantity}
-                setSelectedImage={setSelectedImage}
-                setSelectedTitle={setSelectedTitle}
-                setSelectedPrice={setSelectedPrice}
               />
             }
           />
           <Route
-            path="/info"
+            path="/Хувцас"
             element={
-              <ProductInfo
+              <Product
+                setProductInfo={setProductInfo}
+                title="Хувцас"
                 cart={cart}
                 setCart={setCart}
-                img={selectedImage}
-                title={selectedTitle}
-                price={selectedPrice}
+                data={data}
                 setTotalQuantity={setTotalQuantity}
               />
             }
           />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signUp" element={<SignUp />} />
+          <Route
+            path="/БэлэгДурсгал"
+            element={
+              <Product
+                setProductInfo={setProductInfo}
+                title="Бэлэг дурсгал"
+                cart={cart}
+                setCart={setCart}
+                data={data}
+                setTotalQuantity={setTotalQuantity}
+              />
+            }
+          />
+          <Route
+            path="/УранЗураг"
+            element={
+              <Product
+                setProductInfo={setProductInfo}
+                title="Уран зураг"
+                cart={cart}
+                setCart={setCart}
+                data={data}
+                setTotalQuantity={setTotalQuantity}
+              />
+            }
+          />
+          <Route
+            path="/Дэлгэрэнгүй"
+            element={
+              <ProductInfo
+                productInfo={productInfo}
+                data={data}
+                cart={cart}
+                setCart={setCart}
+                setTotalQuantity={setTotalQuantity}
+              />
+            }
+          />
+          <Route
+            path="/Нэвтрэх"
+            element={<Login setUser={setUser} userData={userData} />}
+          />
+          <Route
+            path="/Бүртгүүлэх"
+            element={<SignUp setUserData={setUserData} userData={userData} />}
+          />
         </Routes>
       </Router>
     </div>

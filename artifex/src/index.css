@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+
+/*zoloogin ehlev css*/
 #item-image{
     border-radius: 30px;
     height: 350px;
@@ -19,3 +21,4 @@
     width: 500px;
     height: 50px;
 }
+/*zoloogin duusav css*/

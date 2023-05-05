@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function Cart({ cart, setCart, setCartVisible, setTotalQuantity }) {
+function Cart({ cart, setCart, setCartVisible, setTotalQuantity, user }) {
   const removeFromCart = (index) => {
     const newCart = [...cart];
     newCart.splice(index, 1);
@@ -23,7 +23,10 @@ function Cart({ cart, setCart, setCartVisible, setTotalQuantity }) {
   setTotalQuantity(cart.reduce((acc, item) => acc + item.quantity, 0));
 
   function clickHandleButton() {
-    alert("Захиалга амжилттай");
+    if (user !== "Зочин") {
+      alert("Захиалга амжилттай");
+      setCart([]);
+    } else alert("Хүсэлт амжилтгүй. Нэвтрэх хэсэгт дарж нэвтэрнэ үү");
   }
 
   return (

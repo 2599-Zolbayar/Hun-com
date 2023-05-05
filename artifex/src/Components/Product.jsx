@@ -5,24 +5,23 @@ function Product(props) {
   const title = props.title;
   const setCart = props.setCart;
   const setTotalQuantity = props.setTotalQuantity;
-  const setSelectedPrice = props.setSelectedPrice;
-  const setSelectedTitle = props.setSelectedTitle;
-  const setSelectedImage = props.setSelectedImage;
   const data = props.data;
+  const setProductInfo = props.setProductInfo;
   const productList = data.map((product) => {
-    return (
-      <MakeProduct
-        cart={cart}
-        setCart={setCart}
-        setTotalQuantity={setTotalQuantity}
-        setSelectedPrice={setSelectedPrice}
-        setSelectedTitle={setSelectedTitle}
-        setSelectedImage={setSelectedImage}
-        title={product.title}
-        img={product.img}
-        price={product.price}
-      />
-    );
+    if (product.type === title) {
+      return (
+        <MakeProduct
+          setProductInfo={setProductInfo}
+          cart={cart}
+          setCart={setCart}
+          setTotalQuantity={setTotalQuantity}
+          title={product.title}
+          img={product.img}
+          price={product.price}
+          id={product.id}
+        />
+      );
+    }
   });
   return (
     <div className="flex flex-col items-center w-full gap-10">
