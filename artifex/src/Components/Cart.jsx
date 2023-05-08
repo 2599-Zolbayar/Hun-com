@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { CSSTransition } from "react-transition-group";
 
 function Cart({ cart, setCart, setCartVisible, setTotalQuantity, user }) {
   const removeFromCart = (index) => {
