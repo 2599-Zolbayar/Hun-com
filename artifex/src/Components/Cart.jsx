@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { CSSTransition } from "react-transition-group";
 
 function Cart({ cart, setCart, setCartVisible, setTotalQuantity, user }) {
   const removeFromCart = (index) => {
@@ -33,6 +34,7 @@ function Cart({ cart, setCart, setCartVisible, setTotalQuantity, user }) {
     <div
       style={{ width: "500px" }}
       className="absolute top-0 right-0 bg-main p-6 flex flex-col gap-2 z-20 rounded-xl drop-shadow-2xl"
+      id="cart"
     >
       <div className="flex flex-row justify-between">
         <h2 className="text-2xl">МИНИЙ САГС</h2>

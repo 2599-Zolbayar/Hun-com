@@ -6,6 +6,8 @@ import Login from "./Components/Login";
 import SignUp from "./Components/SignUp";
 import React, { useState, useEffect } from "react";
 import data from "./Data";
+import "./index.css";
+import Basket from "./Components/itemPicture/Basket.svg";
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -16,6 +18,7 @@ function App() {
     },
   ]);
   const [cartVisible, setCartVisible] = useState(false);
+  const [loginVisible, setLoginVisible] = useState(false);
   const [totalQuantity, setTotalQuantity] = useState(0);
   const [user, setUser] = useState("Зочин");
   const [productInfo, setProductInfo] = useState({
@@ -41,9 +44,32 @@ function App() {
         <Link to="/ҮнэтЭдлэл"> Үнэт эдлэл </Link>
         <Link to="/БэлэгДурсгал"> Бэлэг дурсгал </Link>
         <Link to="/Хувцас"> Хувцас </Link>
-        <Link to="/Нэвтрэх"> Нэвтрэх </Link>
-        <button onClick={() => setCartVisible(true)}>
-          Карт {totalQuantity}
+        <button
+          onClick={() => {
+            setLoginVisible(true);
+          }}
+        >
+          Нэвтрэх
+        </button>
+        {loginVisible ? (
+          <div className="absolute w-full h-screen flex bg-shadowColor gap-7 z-10">
+            <Login
+              setUser={setUser}
+              userData={userData}
+              setLoginVisible={setLoginVisible}
+            />
+          </div>
+        ) : (
+          ""
+        )}
+        <button
+          className="relative h-10 w-10"
+          onClick={() => setCartVisible(!cartVisible)}
+        >
+          <img src={Basket} alt="basket" />
+          <p className="absolute bottom-0 right-0 rounded-full px-1 text-xs bg-btnColor1 text-btnColor2">
+            {totalQuantity}
+          </p>
         </button>
         <p>{user}</p>
         {cartVisible ? (
@@ -123,12 +149,14 @@ function App() {
             }
           />
           <Route
-            path="/Нэвтрэх"
-            element={<Login setUser={setUser} userData={userData} />}
-          />
-          <Route
             path="/Бүртгүүлэх"
-            element={<SignUp setUserData={setUserData} userData={userData} />}
+            element={
+              <SignUp
+                setUserData={setUserData}
+                userData={userData}
+                setLoginVisible={setLoginVisible}
+              />
+            }
           />
         </Routes>
       </Router>

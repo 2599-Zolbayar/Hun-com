@@ -2,7 +2,7 @@ import Logo from "./itemPicture/Logo.svg";
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 
-export default function SignUp({ userData, setUserData }) {
+export default function SignUp({ userData, setUserData, setLoginVisible }) {
   const navigate = useNavigate();
   const [user, setUser] = useState({
     username: "",
@@ -19,12 +19,13 @@ export default function SignUp({ userData, setUserData }) {
 
     setUserData([...userData, newUser]);
     alert("Бүртгэл ажилттай үүслээ");
+    setLoginVisible(true);
     navigate("/Нэвтрэх");
   };
 
   return (
     <form>
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+      <div className="flex h-screen flex-1 flex-col  px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img className="mx-auto h-52 w-52" src={Logo} alt="Your Company" />
           <h2 className="text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
@@ -80,7 +81,7 @@ export default function SignUp({ userData, setUserData }) {
             <div className="mt-6 flex items-center justify-end gap-x-6">
               <button
                 onClick={() => {
-                  navigate("/Нэвтрэх");
+                  setLoginVisible(true);
                 }}
                 type="button"
                 className="px-3 py-2 text-sm font-semibold leading-6 drop-shadow-2xl"
