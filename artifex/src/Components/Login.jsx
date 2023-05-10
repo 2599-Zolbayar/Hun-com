@@ -18,19 +18,14 @@ export default function Login({ setUser, userData, setLoginVisible }) {
         user.username === data.username && user.password === data.password
     );
     if (usercheck) {
-      console.log("Нэвтрэлт амжилттай");
+      alert("Нэвтрэлт амжилттай");
       setUser(data.username);
-      navigate("/ҮнэтЭдлэл");
       setLoginVisible(false);
     } else {
-      console.log("Хэрэглэгчийн нэр эсвэл нууц үг буруу байна");
+      setLoginVisible(true);
     }
-    console.log(usercheck);
+    navigate("/ҮнэтЭдлэл");
   };
-
-  useEffect(() => {
-    checkUser(userData);
-  }, [data.username, data.password]);
 
   console.log(data);
   return (
@@ -126,12 +121,19 @@ export default function Login({ setUser, userData, setLoginVisible }) {
               </button>
             </div>
           </form>
-          <a
-            className="mt-10 text-center text-sm text-gray-500"
-            href="/Бүртгүүлэх"
-          >
-            Шинээр бүртгүүлэх
-          </a>
+          <div className="mt-10 flex flex-row justify-between">
+            <a className="text-center text-sm text-gray-500" href="/Бүртгүүлэх">
+              Шинээр бүртгүүлэх
+            </a>
+            <button
+              className="text-red-500 text-sm font-semibold leading-6"
+              onClick={() => {
+                setUser("Зочин");
+              }}
+            >
+              Гарах
+            </button>
+          </div>
         </div>
       </div>
     </div>
