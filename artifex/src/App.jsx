@@ -8,9 +8,10 @@ import React, { useState, useEffect } from "react";
 import data from "./Data";
 import "./index.css";
 import Basket from "./Components/itemPicture/Basket.svg";
+import useLocalStorage from "./use-local-storage";
 
 function App() {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useLocalStorage("products", []);
   const [userData, setUserData] = useState([
     {
       username: "admin1",
@@ -20,7 +21,7 @@ function App() {
   const [cartVisible, setCartVisible] = useState(false);
   const [loginVisible, setLoginVisible] = useState(false);
   const [totalQuantity, setTotalQuantity] = useState(0);
-  const [user, setUser] = useState("Зочин");
+  const [user, setUser] = useLocalStorage("name", "Зочин");
   const [productInfo, setProductInfo] = useState({
     title: data[0].title,
     price: data[0].price,
