@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { MdOutlineCancel } from "react-icons/md";
 
 function Cart({ cart, setCart, setCartVisible, setTotalQuantity, user }) {
   const removeFromCart = (index) => {
@@ -32,12 +33,14 @@ function Cart({ cart, setCart, setCartVisible, setTotalQuantity, user }) {
   return (
     <div
       style={{ width: "500px" }}
-      className="absolute top-0 right-0 bg-main p-6 flex flex-col gap-2 z-20 rounded-xl drop-shadow-2xl"
+      className="absolute top-0 right-0 bg-main p-6 flex flex-col gap-2 z-20 rounded-xl drop-shadow-2xl top-28"
       id="cart"
     >
       <div className="flex flex-row justify-between">
         <h2 className="text-2xl">МИНИЙ САГС</h2>
-        <button onClick={() => setCartVisible(false)}>X</button>
+        <button onClick={() => setCartVisible(false)}>
+          <MdOutlineCancel className="w-7 h-7 bg-btnColor1 text-btnColor2 rounded-full" />
+        </button>
       </div>
       <hr />
       {cart.map((item, index) => {

@@ -22,10 +22,25 @@ function Product(props) {
         />
       );
     }
+
+    if (title === "") {
+      return (
+        <MakeProduct
+          setProductInfo={setProductInfo}
+          cart={cart}
+          setCart={setCart}
+          setTotalQuantity={setTotalQuantity}
+          title={product.title}
+          img={product.img}
+          price={product.price}
+          id={product.id}
+        />
+      );
+    }
   });
   return (
-    <div className="flex flex-col items-center w-full gap-10">
-      <h1 className="text-3xl">{title}</h1>
+    <div className="flex flex-col items-center w-full gap-10 mt-6">
+      <h1 className="text-3xl">Хайлтын үр дүн</h1>
       <div className="grid gap-x-20 gap-y-12 grid-cols-3 max-[1220px]:grid-cols-2 max-[791px]:grid-cols-1">
         {productList}
       </div>

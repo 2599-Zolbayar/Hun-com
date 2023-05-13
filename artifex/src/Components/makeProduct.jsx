@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function MakeProduct({
-  id,
   cart,
   setCart,
   title,
@@ -11,7 +10,6 @@ function MakeProduct({
   setTotalQuantity,
   setProductInfo,
 }) {
-  id = useParams();
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
   const [quantity, setQuantity] = useState(1);
