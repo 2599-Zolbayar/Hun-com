@@ -224,7 +224,7 @@ function App() {
             element={
               <Product
                 setProductInfo={setProductInfo}
-                title=""
+                title="Хайлтын үр дүн"
                 cart={cart}
                 setCart={setCart}
                 data={filteredData}
