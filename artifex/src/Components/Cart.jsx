@@ -1,7 +1,15 @@
 import React, { useState } from "react";
-import { MdOutlineCancel } from "react-icons/md";
+import { MdOutlineClear } from "react-icons/md";
+import { HiOutlineTrash } from "react-icons/hi";
 
-function Cart({ cart, setCart, setCartVisible, setTotalQuantity, user }) {
+function Cart({
+  cart,
+  setCart,
+  setCartVisible,
+  setTotalQuantity,
+  user,
+  cartVisible,
+}) {
   const removeFromCart = (index) => {
     const newCart = [...cart];
     newCart.splice(index, 1);
@@ -32,15 +40,22 @@ function Cart({ cart, setCart, setCartVisible, setTotalQuantity, user }) {
 
   return (
     <div
-      style={{ width: "500px" }}
+      style={{
+        width: "500px",
+      }}
       className="absolute top-0 right-0 bg-main p-6 flex flex-col gap-2 z-20 rounded-xl drop-shadow-2xl top-28"
       id="cart"
     >
       <div className="flex flex-row justify-between">
         <h2 className="text-2xl">МИНИЙ САГС</h2>
-        <button onClick={() => setCartVisible(false)}>
-          <MdOutlineCancel className="w-7 h-7 bg-btnColor1 text-btnColor2 rounded-full" />
-        </button>
+        <div className="flex flex-row gap-2">
+          <button onClick={() => setCart([])}>
+            <HiOutlineTrash className="w-6 h-6 text-red-500 rounded-full" />
+          </button>
+          <button onClick={() => setCartVisible(false)}>
+            <MdOutlineClear className="w-7 h-7 text-btnColor2 rounded-full" />
+          </button>
+        </div>
       </div>
       <hr />
       {cart.map((item, index) => {

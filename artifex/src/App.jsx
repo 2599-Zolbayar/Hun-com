@@ -11,7 +11,7 @@ import "./index.css";
 import Basket from "./Components/itemPicture/Basket.svg";
 import useLocalStorage from "./use-local-storage";
 import Search from "./Components/Search";
-
+import { CSSTransition } from "react-transition-group";
 function App() {
   const [cart, setCart] = useLocalStorage("products", []);
   const [userData, setUserData] = useState([
@@ -58,7 +58,9 @@ function App() {
       <Router>
         <div>
           <div className="flex flex-row justify-between px-8 items-center">
-            <img className="h-16" src={Logo} alt="" />
+            <Link className="h-16" to="/">
+              <img className="h-full" src={Logo} alt="" />
+            </Link>
             <div className="flex flex-row h-11 gap-2">
               <Search
                 data={data}
@@ -82,27 +84,27 @@ function App() {
           </div>
           <div className="flex flex-row">
             <Link
-              className="w-1/5 h-12 flex items-center justify-center"
+              className="w-1/5 h-12 flex items-center justify-center text-lg transition-all duration-300 transform hover:scale-125"
               to="/УранЗураг"
             >
               Уран зураг
             </Link>
             <Link
-              className="w-1/5 h-12 flex items-center justify-center"
+              className="w-1/5 h-12 flex items-center justify-center text-lg transition-all duration-300 transform hover:scale-125"
               to="/ҮнэтЭдлэл"
             >
               {" "}
               Үнэт эдлэл{" "}
             </Link>
             <Link
-              className="w-1/5 h-12 flex items-center justify-center"
+              className="w-1/5 h-12 flex items-center justify-center text-lg transition-all duration-300 transform hover:scale-125"
               to="/БэлэгДурсгал"
             >
               {" "}
               Бэлэг дурсгал{" "}
             </Link>
             <Link
-              className="w-1/5 h-12 flex items-center justify-center"
+              className="w-1/5 h-12 flex items-center justify-center text-lg transition-all duration-300 transform hover:scale-125"
               to="/Хувцас"
             >
               {" "}
@@ -110,7 +112,7 @@ function App() {
             </Link>
             {checkLogin ? (
               <button
-                className="w-1/5 h-12 flex items-center justify-center"
+                className="w-1/5 h-12 flex items-center justify-center text-lg transition-all duration-300 transform hover:scale-125"
                 onClick={() => {
                   setLoginVisible(true);
                 }}
@@ -119,7 +121,7 @@ function App() {
               </button>
             ) : (
               <button
-                className="text-red-500 text-sm font-semibold leading-6"
+                className="text-red-500 w-1/5 h-12 flex items-center justify-center text-lg transition-all duration-300 transform hover:scale-125"
                 onClick={() => {
                   handleLogOut();
                 }}
@@ -141,17 +143,21 @@ function App() {
               ""
             )}
           </div>
-          {cartVisible ? (
+          <CSSTransition
+            in={cartVisible}
+            timeout={500}
+            classNames="cart"
+            unmountOnExit
+          >
             <Cart
               user={user}
               cart={cart}
               setCart={setCart}
+              cartVisible={cartVisible}
               setCartVisible={setCartVisible}
               setTotalQuantity={setTotalQuantity}
             />
-          ) : (
-            ""
-          )}
+          </CSSTransition>
         </div>
 
         <Routes>
