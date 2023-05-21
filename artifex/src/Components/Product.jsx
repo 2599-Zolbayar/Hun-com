@@ -6,12 +6,12 @@ function Product(props) {
   const setCart = props.setCart;
   const setTotalQuantity = props.setTotalQuantity;
   const data = props.data;
-  const setProductInfo = props.setProductInfo;
   const productList = data.map((product) => {
     if (product.type === title) {
       return (
         <MakeProduct
-          setProductInfo={setProductInfo}
+          itemQuantity={product.itemQuantity}
+          artist={product.artist}
           cart={cart}
           setCart={setCart}
           setTotalQuantity={setTotalQuantity}
@@ -26,7 +26,8 @@ function Product(props) {
     if (title === "Хайлтын үр дүн") {
       return (
         <MakeProduct
-          setProductInfo={setProductInfo}
+          itemQuantity={product.itemQuantity}
+          artist={product.artist}
           cart={cart}
           setCart={setCart}
           setTotalQuantity={setTotalQuantity}

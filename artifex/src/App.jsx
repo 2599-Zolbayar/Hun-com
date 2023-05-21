@@ -12,6 +12,8 @@ import Basket from "./Components/itemPicture/Basket.svg";
 import useLocalStorage from "./use-local-storage";
 import Search from "./Components/Search";
 import { CSSTransition } from "react-transition-group";
+import Footer from "./Components/Footer";
+
 function App() {
   const [cart, setCart] = useLocalStorage("products", []);
   const [userData, setUserData] = useState([
@@ -23,14 +25,8 @@ function App() {
   const [cartVisible, setCartVisible] = useState(false);
   const [loginVisible, setLoginVisible] = useState(false);
   const [totalQuantity, setTotalQuantity] = useState(0);
+  const [setLogin, setSignUp] = useState(true);
   const [user, setUser] = useLocalStorage("name", "Зочин");
-  const [productInfo, setProductInfo] = useState({
-    title: data[0].title,
-    price: data[0].price,
-    img: data[0].img,
-  });
-
-  console.log("hello" + productInfo);
 
   useEffect(() => {
     console.log("Cart updated:", cart);
@@ -85,27 +81,27 @@ function App() {
           <div className="flex flex-row">
             <Link
               className="w-1/5 h-12 flex items-center justify-center text-lg transition-all duration-300 transform hover:scale-125"
-              to="/УранЗураг"
+              to="/painting"
             >
               Уран зураг
             </Link>
             <Link
               className="w-1/5 h-12 flex items-center justify-center text-lg transition-all duration-300 transform hover:scale-125"
-              to="/ҮнэтЭдлэл"
+              to="/accessor"
             >
               {" "}
               Үнэт эдлэл{" "}
             </Link>
             <Link
               className="w-1/5 h-12 flex items-center justify-center text-lg transition-all duration-300 transform hover:scale-125"
-              to="/БэлэгДурсгал"
+              to="/souvenirs"
             >
               {" "}
               Бэлэг дурсгал{" "}
             </Link>
             <Link
               className="w-1/5 h-12 flex items-center justify-center text-lg transition-all duration-300 transform hover:scale-125"
-              to="/Хувцас"
+              to="/clothes"
             >
               {" "}
               Хувцас{" "}
@@ -130,13 +126,15 @@ function App() {
               </button>
             )}
             {loginVisible ? (
-              <div className="absolute w-full h-screen flex bg-shadowColor gap-7 z-10">
+              <div className="fixed w-screen h-screen flex bg-shadowColor gap-7 z-10">
                 <Login
                   user={user}
                   setUser={setUser}
                   userData={userData}
                   setLoginVisible={setLoginVisible}
                   setUserData={setUserData}
+                  setLogin={setLogin}
+                  setSignUp={setSignUp}
                 />
               </div>
             ) : (
@@ -162,10 +160,9 @@ function App() {
 
         <Routes>
           <Route
-            path="/ҮнэтЭдлэл"
+            path="/accessor"
             element={
               <Product
-                setProductInfo={setProductInfo}
                 title="Үнэт эдлэл"
                 cart={cart}
                 setCart={setCart}
@@ -175,10 +172,9 @@ function App() {
             }
           />
           <Route
-            path="/Хувцас"
+            path="/clothes"
             element={
               <Product
-                setProductInfo={setProductInfo}
                 title="Хувцас"
                 cart={cart}
                 setCart={setCart}
@@ -188,10 +184,9 @@ function App() {
             }
           />
           <Route
-            path="/БэлэгДурсгал"
+            path="/souvenirs"
             element={
               <Product
-                setProductInfo={setProductInfo}
                 title="Бэлэг дурсгал"
                 cart={cart}
                 setCart={setCart}
@@ -201,10 +196,9 @@ function App() {
             }
           />
           <Route
-            path="/УранЗураг"
+            path="/painting"
             element={
               <Product
-                setProductInfo={setProductInfo}
                 title="Уран зураг"
                 cart={cart}
                 setCart={setCart}
@@ -214,10 +208,9 @@ function App() {
             }
           />
           <Route
-            path="/Дэлгэрэнгүй"
+            path="/info/:id"
             element={
               <ProductInfo
-                productInfo={productInfo}
                 data={data}
                 cart={cart}
                 setCart={setCart}
@@ -226,10 +219,9 @@ function App() {
             }
           />
           <Route
-            path="/Хайлт"
+            path="/search"
             element={
               <Product
-                setProductInfo={setProductInfo}
                 title="Хайлтын үр дүн"
                 cart={cart}
                 setCart={setCart}
@@ -239,6 +231,7 @@ function App() {
             }
           />
         </Routes>
+        <Footer setLoginVisible={setLoginVisible} setSignUp={setSignUp} />
       </Router>
     </div>
   );

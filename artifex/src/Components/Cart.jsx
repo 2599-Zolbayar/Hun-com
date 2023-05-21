@@ -2,20 +2,13 @@ import React, { useState } from "react";
 import { MdOutlineClear } from "react-icons/md";
 import { HiOutlineTrash } from "react-icons/hi";
 
-function Cart({
-  cart,
-  setCart,
-  setCartVisible,
-  setTotalQuantity,
-  user,
-  cartVisible,
-}) {
+function Cart({ cart, setCart, setCartVisible, setTotalQuantity, user }) {
   const removeFromCart = (index) => {
     const newCart = [...cart];
     newCart.splice(index, 1);
     setCart(newCart);
   };
-
+  // Картанд орсон барааны тоог өөрчлөх
   const updateQuantity = (item, index, newQuantity) => {
     const newCart = [...cart];
 
@@ -24,13 +17,14 @@ function Cart({
       setCart(newCart);
     }
   };
+  //Нийт үнэ
   const totalPrice = cart.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
   );
-
+  //Нийт тоо хэмжээ
   setTotalQuantity(cart.reduce((acc, item) => acc + item.quantity, 0));
-
+  //order button click
   function clickHandleButton() {
     if (user !== "Зочин") {
       alert("Захиалга амжилттай");
@@ -90,7 +84,14 @@ function Cart({
                   {item.quantity}
                   <button
                     onClick={() =>
-                      updateQuantity(item, index, item.quantity + 1)
+                      updateQuantity(
+                        item,
+                        index,
+                        //itemQuanity is stock
+                        item.itemQuantity > item.quantity
+                          ? item.quantity + 1
+                          : item.quantity
+                      )
                     }
                   >
                     +

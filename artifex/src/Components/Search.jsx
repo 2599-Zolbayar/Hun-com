@@ -23,12 +23,13 @@ const Search = ({ data, filteredData, setFilteredData }) => {
         type="text"
         value={searchQuery}
         onChange={handleSearch}
-        className="flex flex-row items-center bg-gray rounded-2xl h-10 w-60"
+        placeholder="Хайлт"
+        className="flex flex-row items-center bg-gray rounded-2xl h-10 w-60 p-3"
       />
       <BiSearchAlt
         className="h-6 w-6 absolute right-2 top-2"
         onClick={() => {
-          navigate("/Хайлт");
+          navigate("/search");
         }}
       />
     </div>

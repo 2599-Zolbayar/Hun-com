@@ -1,22 +1,35 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Minus from "./itemPicture/Minus.svg";
 import Plus from "./itemPicture/Plus.svg";
 import Calendar from "./itemPicture/Calendar.svg";
 
-const ProductInfo = ({ cart, setCart, setTotalQuantity, productInfo }) => {
+const ProductInfo = ({ cart, setCart, setTotalQuantity, data }) => {
+  const { id } = useParams();
+  const product = data.find((item) => item.id === parseInt(id));
+
   const [count, setCount] = useState(1);
-  const quantity = 1;
-  const { title, price, img } = productInfo;
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    console.log("Cart updated:", quantity);
-  }, [quantity]);
+    console.log("Cart updated:", count);
+  }, [count]);
+
+  useEffect(() => {
+    setTotalQuantity(cart.reduce((acc, item) => acc + item.quantity, 0));
+  }, [cart, setTotalQuantity]);
+
+  if (!product) {
+    return <div>Product not found.</div>;
+  }
 
   const handleAddButton = () => {
-    const item = { title, img, price, quantity };
-    const itemIndex = cart.findIndex((cartItem) => cartItem.title === title);
+    const itemIndex = cart.findIndex(
+      (cartItem) => cartItem.title === product.title
+    );
 
     if (itemIndex >= 0) {
       const newCart = [...cart];
@@ -26,17 +39,16 @@ const ProductInfo = ({ cart, setCart, setTotalQuantity, productInfo }) => {
       };
       setCart(newCart);
     } else {
-      setCart([...cart, item]);
-      item.quantity = count;
+      const newProduct = {
+        ...product,
+        quantity: count,
+      };
+      setCart([...cart, newProduct]);
     }
   };
-  setTotalQuantity(cart.reduce((acc, item) => acc + item.quantity, 0));
 
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  const handleDateChange = (dates) => {
-    setSelectedDate(dates);
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
   };
 
   const toggleVisibility = () => {
@@ -44,19 +56,19 @@ const ProductInfo = ({ cart, setCart, setTotalQuantity, productInfo }) => {
   };
 
   return (
-    <div className="flex flex-col w-full items-center justify-center gap-20 xl:flex-row">
+    <div className="flex flex-col w-full items-center mt-6 justify-center gap-20 xl:flex-row">
       <img
         id="largeimage"
-        src={img}
-        alt={title}
+        src={product.img}
+        alt={product.title}
         className="w-full xl:w-52 xl:h-52"
       />
       <div className="flex flex-col">
         <div>
-          <h2 className="text-5xl">{title}</h2>
+          <h2 className="text-5xl">{product.title}</h2>
           <div className="mt-3 pl-7 text-xl">
             <p className="text-btnColor2 text-3xl font-semibold">
-              {price.toLocaleString({
+              {product.price.toLocaleString(undefined, {
                 maximumFractionDigits: 2,
               })}
               ₮
@@ -71,25 +83,36 @@ const ProductInfo = ({ cart, setCart, setTotalQuantity, productInfo }) => {
               className="flex flex-wrap gap-1 xl:w-full"
             >
               <div className="w-40 h-10 flex items-center justify-center rounded-3xl bg-green-400 border-green-400 border">
-                Үнэт эдлэл
+                {product.type}
               </div>
               <div className="w-40 h-10 flex items-center justify-center rounded-3xl bg-green-400 border-green-400 border">
                 Үнэтэй
               </div>
               <div className="w-40 h-10 flex items-center justify-center rounded-3xl bg-green-400 border-green-400 border">
-                Хаш чулуун
-              </div>
-              <div className="w-40 h-10 flex items-center justify-center rounded-3xl bg-green-400 border-green-400 border">
-                Толботой
+                Цөөн тооны
               </div>
             </div>
+            <p>Уран бүтээлч: {product.artist}</p>
             <p>Тоо ширхэг</p>
+            <div className="text-base">
+              Боломжит тоо: {product.itemQuantity}
+            </div>
             <div className="flex flex-row gap-3">
-              <button onClick={() => setCount(count > 1 ? count - 1 : 1)}>
+              <button
+                onClick={() =>
+                  setCount((prevCount) => (prevCount > 1 ? prevCount - 1 : 1))
+                }
+              >
                 <img src={Minus} alt="minus" />
               </button>
               {count}
-              <button onClick={() => setCount(count + 1)}>
+              <button
+                onClick={() =>
+                  setCount((prevCount) =>
+                    prevCount < product.itemQuantity ? prevCount + 1 : prevCount
+                  )
+                }
+              >
                 <img src={Plus} alt="plus" />
               </button>
             </div>
@@ -100,7 +123,7 @@ const ProductInfo = ({ cart, setCart, setTotalQuantity, productInfo }) => {
                   {selectedDate && (
                     <p>
                       {" "}
-                      {selectedDate.toLocaleDateString({
+                      {selectedDate.toLocaleDateString("en-US", {
                         year: "numeric",
                         month: "long",
                         day: "numeric",
@@ -108,7 +131,7 @@ const ProductInfo = ({ cart, setCart, setTotalQuantity, productInfo }) => {
                     </p>
                   )}
                 </div>
-                <img src={Calendar} onClick={() => toggleVisibility()} />
+                <img src={Calendar} onClick={toggleVisibility} alt="calendar" />
               </div>
               {isVisible && (
                 <div className="absolute">
