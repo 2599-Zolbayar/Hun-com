@@ -13,6 +13,7 @@ import useLocalStorage from "./use-local-storage";
 import Search from "./Components/Search";
 import { CSSTransition } from "react-transition-group";
 import Footer from "./Components/Footer";
+import HomePage from "./Components/HomePage";
 
 function App() {
   const [cart, setCart] = useLocalStorage("products", []);
@@ -159,6 +160,16 @@ function App() {
         </div>
 
         <Routes>
+          <Route
+            path="/"
+            element={
+              <HomePage
+                cart={cart}
+                setCart={setCart}
+                setTotalQuantity={setTotalQuantity}
+              />
+            }
+          />
           <Route
             path="/accessor"
             element={
