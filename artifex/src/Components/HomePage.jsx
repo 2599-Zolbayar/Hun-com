@@ -1,6 +1,8 @@
 import React, { useRef, useState } from "react";
 import Cover from "./itemPicture/Cover.png";
 import { TfiArrowCircleDown } from "react-icons/tfi";
+import { BiRightArrow } from "react-icons/bi";
+import { BiLeftArrow } from "react-icons/bi";
 import painting from "./itemPicture/painting.png";
 import clotches from "./itemPicture/Clotches.png";
 import acceciors from "./itemPicture/Acceciors.png";
@@ -186,39 +188,30 @@ const ProductList = ({ cart, setCart, setTotalQuantity }) => {
       <h3 className="font-semibold text-3xl my-20 mx-auto">
         Онцлох бүтээгдэхүүн
       </h3>
-      <div className="grid grid-cols-3 gap-20">
-        {filteredProducts.map((product) => (
-          <MakeProduct
-            itemQuantity={product.itemQuantity}
-            artist={product.artist}
-            cart={cart}
-            setCart={setCart}
-            setTotalQuantity={setTotalQuantity}
-            title={product.title}
-            img={product.img}
-            price={product.price}
-            id={product.id}
-          />
-        ))}
-      </div>
-      <div className="mt-4">
-        <label htmlFor="toggle" className="flex items-center cursor-pointer">
-          <div className="relative">
-            <input
-              type="checkbox"
-              id="toggle"
-              checked={showLastThree}
-              onChange={handleToggle}
-              className="sr-only"
+      <div className="flex flex-row items-center">
+        <BiLeftArrow
+          onClick={handleToggle}
+          className="w-10 h-10 text-btnColor2"
+        />
+        <div className="grid grid-cols-3 gap-20 hover:origin-top-left">
+          {filteredProducts.map((product) => (
+            <MakeProduct
+              itemQuantity={product.itemQuantity}
+              artist={product.artist}
+              cart={cart}
+              setCart={setCart}
+              setTotalQuantity={setTotalQuantity}
+              title={product.title}
+              img={product.img}
+              price={product.price}
+              id={product.id}
             />
-            <div className="w-10 h-6 bg-gray-300 rounded-full shadow-inner"></div>
-            <div
-              className={`${
-                showLastThree ? "bg-green-500" : "bg-gray-200"
-              } absolute left-0 top-0 w-6 h-6 rounded-full shadow transform transition-transform`}
-            ></div>
-          </div>
-        </label>
+          ))}
+        </div>
+        <BiRightArrow
+          onClick={handleToggle}
+          className="w-10 h-10 text-btnColor2"
+        />
       </div>
     </div>
   );
